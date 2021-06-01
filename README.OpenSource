@@ -1,0 +1,10 @@
+[
+  {
+    "Name": "boringssl",
+    "License": "OpenSSL License,MIT License,ISC License",
+    "License File": "src/LICENSE",
+    "Version Number": "fips-android-20191020",
+    "Upstream URL": "https://github.com/google/boringssl @https://boringssl.googlesource.com/boringssl/",
+    "Description": "BoringSSL is a fork of OpenSSL."
+  }
+]

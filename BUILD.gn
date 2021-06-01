@@ -1,0 +1,155 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2020-2021. All rights reserved.
+# Copyright (c) 2016, Google Inc.
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+# SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+# OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+# CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
+
+import("//build/ohos.gni")
+import("//developtools/profiler/build/config.gni")
+import("BUILD.generated.gni")
+
+posix_copts = [
+  # Assembler option --noexecstack adds .note.GNU-stack to each object to
+  # ensure that binaries can be built with non-executable stack.
+  "-Wa,--noexecstack",
+
+  # This is needed on Linux systems (at least) to get rwlock in pthread.
+  "-D_XOPEN_SOURCE=700",
+
+  # This list of warnings should match those in the top-level CMakeLists.txt.
+  "-Wall",
+  "-Werror",
+  "-Wformat=2",
+  "-Wsign-compare",
+  "-Wmissing-field-initializers",
+  "-Wwrite-strings",
+  "-Wshadow",
+  "-fno-common",
+
+  # Modern build environments should be able to set this to use atomic
+  # operations for reference counting rather than locks. However, it's
+  # known not to work on some Android builds.
+  # "-DOPENSSL_C11_ATOMIC",
+]
+
+boringssl_copts = []
+if (target_os == "linux" || target_os == "android" || target_os == "ohos") {
+  boringssl_copts += posix_copts
+} else if (target_os == "win") {
+  boringssl_copts += [
+    "-DWIN32_LEAN_AND_MEAN",
+    "-DOPENSSL_NO_ASM",
+  ]
+} else {
+  boringssl_copts += [ "-DOPENSSL_NO_ASM" ]
+}
+
+crypto_sources_asm = []
+if (target_os == "linux" || target_os == "android" || target_os == "ohos") {
+  if (target_cpu == "x64") {
+    crypto_sources_asm += crypto_sources_linux_x86_64
+  } else if (target_cpu == "x86") {
+    crypto_sources_asm += crypto_sources_linux_x86
+  }
+
+  # add ARM assembly code:
+  if (target_cpu == "arm") {
+    crypto_sources_asm += crypto_sources_linux_arm
+  } else if (target_cpu == "arm64") {
+    crypto_sources_asm += crypto_sources_linux_aarch64
+  }
+} else if (target_os == "mac") {
+  crypto_sources_asm += crypto_sources_mac_x86_64
+}
+
+# for OHOS host toolchain
+if (current_toolchain == host_toolchain) {
+  crypto_sources_asm += crypto_sources_linux_x86_64
+}
+
+# For C targets only (not C++), compile with C11 support.
+posix_copts_c11 = [
+  "-std=c11",
+  "-Wmissing-prototypes",
+  "-Wold-style-definition",
+  "-Wstrict-prototypes",
+]
+
+boringssl_copts_c11 = boringssl_copts
+if (target_os == "linux" || target_os == "android" || target_os == "ohos" ||
+    target_os == "mac") {
+  boringssl_copts_c11 += posix_copts_c11
+}
+
+# For C++ targets only (not C), compile with C++11 support.
+#posix_copts_cxx = [
+#  "-std=c++11",
+#  "-Wmissing-declarations",
+#]
+
+boringssl_copts_cxx = boringssl_copts
+
+#if (target_os == "linux" || target_os == "android" || target_os == "ohos" ||
+#    target_os == "mac") {
+#  boringssl_copts_c11 += posix_copts_cxx
+#}
+
+config("boringssl_config") {
+  include_dirs = [ "src/include" ]
+}
+
+ohos_shared_library("crypto") {
+  sources = crypto_sources + crypto_sources_asm
+  cflags_c = boringssl_copts_c11
+
+  # include_dirs = ["src/include"]
+  public_configs = [ ":boringssl_config" ]
+  if (target_os == "android" || target_os == "ohos" || target_os == "mac") {
+    ldflags = []
+  } else if (target_os == "windows") {
+    ldflags = [ "-defaultlib:advapi32.lib" ]
+  } else {
+    ldflags = [ "-lpthread" ]
+  }
+  install_enable = true
+  subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+}
+
+ohos_shared_library("ssl") {
+  sources = ssl_sources
+  cflags = boringssl_copts_cxx
+
+  # include_dirs = ["src/include"]
+  public_configs = [ ":boringssl_config" ]
+  deps = [ ":crypto" ]
+  install_enable = true
+  subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+}
+
+#ohos_executable("bssl") {
+#  sources = tool_sources + tool_headers
+#  cflags = boringssl_copts_cxx
+
+# include_dirs = ["src/include"]
+#  public_configs = [ ":boringssl_config" ]
+#  deps = [
+#    ":crypto",
+#    ":ssl",
+#  ]
+#}
+
+group("boringssl") {
+  deps = [
+    ":crypto",
+    ":ssl",
+  ]
+}
