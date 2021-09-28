@@ -65,6 +65,10 @@ Note:If the text contains special characters, please escape them according to th
             </policy>
         </policylist>
         <filefilterlist>
+            <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
+                <filteritem type="filepath" name="src/fuzz/.*" desc="the binary file in third party"/>
+                <filteritem type="filepath" name="src/util/bot/nasm-win32.exe.sha1" desc="the binary file in third party"/>
+            </filefilter>
             <filefilter name="defaultPolicyFilter" desc="Filters for compatibility，license header policies">
                 <filteritem type="filepath" name="src/crypto/curve25519/asm/x25519-asm-arm.S" desc="no license header"/>
                 <filteritem type="filepath" name="src/crypto/ecdh_extra/ecdh_extra.c" desc="no license header"/>
@@ -110,7 +114,7 @@ Note:If the text contains special characters, please escape them according to th
                  * included with this distribution is covered by the same copyright terms
                  * except that the holder is Tim Hudson (tjh@cryptsoft.com).
                  * 
-                 * Copyright remains Eric Young's, and as such any Copyright notices in
+                 * Copyright remains Eric Young&apos;s, and as such any Copyright notices in
                  * the code are not to be removed.
                  * If this package is used in a product, Eric Young should be given attribution
                  * as the author of the parts of the library used.
