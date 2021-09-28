@@ -61,6 +61,7 @@ Note:If the text contains special characters, please escape them according to th
             <policy name="projectPolicy" desc="">	
                 <policyitem type="compatibility" name="Original SSLeay License" path=".*" desc="Original SSLeay License"/> 
                 <policyitem type="compatibility" name="OpenSSL" path=".*" desc="OpenSSL licensex "/>
+                <policyitem type="compatibility" name="Original OpenSSL License" path=".*" desc="Original OpenSSL licensex "/>
             </policy>
         </policylist>
         <filefilterlist>
@@ -115,6 +116,40 @@ Note:If the text contains special characters, please escape them according to th
                  * as the author of the parts of the library used.
                  * This can be in the form of a textual message at program startup or
                  * in documentation (online or textual) provided with the package.
+                " desc=""/>
+            </licensematcher>
+            <licensematcher name="Original OpenSSL License" desc="the license not identify" >
+                <licensetext name="
+                 * Redistribution and use in source and binary forms, with or without
+                 * modification, are permitted provided that the following conditions
+                 * are met:
+                 *
+                 * 1. Redistributions of source code must retain the above copyright
+                 *    notice, this list of conditions and the following disclaimer.
+                 *
+                 * 2. Redistributions in binary form must reproduce the above copyright
+                 *    notice, this list of conditions and the following disclaimer in
+                 *    the documentation and/or other materials provided with the
+                 *    distribution.
+                 *
+                 * 3. All advertising materials mentioning features or use of this
+                 *    software must display the following acknowledgment:
+                 *    &quot;This product includes software developed by the OpenSSL Project
+                 *    for use in the OpenSSL Toolkit. (http://www.OpenSSL.org/)&quot;
+                 *
+                 * 4. The names &quot;OpenSSL Toolkit&quot; and &quot;OpenSSL Project&quot; must not be used to
+                 *    endorse or promote products derived from this software without
+                 *    prior written permission. For written permission, please contact
+                 *    licensing@OpenSSL.org.
+                 *
+                 * 5. Products derived from this software may not be called &quot;OpenSSL&quot;
+                 *    nor may &quot;OpenSSL&quot; appear in their names without prior written
+                 *    permission of the OpenSSL Project.
+                 *
+                 * 6. Redistributions of any form whatsoever must retain the following
+                 *    acknowledgment:
+                 *    &quot;This product includes software developed by the OpenSSL Project
+                 *    for use in the OpenSSL Toolkit (http://www.OpenSSL.org/)&quot;
                 " desc=""/>
             </licensematcher>	
         </licensematcherlist>
