@@ -91,6 +91,12 @@ Note:If the text contains special characters, please escape them according to th
                 <filteritem type="filepath" name="src/util/BUILD.toplevel" desc="no license header"/>
                 <filteritem type="filepath" name="src/util/convert_comments.go" desc="no license header"/>	
                 <filteritem type="filepath" name="src/third_party/googletest/Makefile.am" desc="no license header"/>
+                <filteritem type="filepath" name="src/crypto/.*" desc="no license header"/>
+                <filteritem type="filepath" name="src/decrepit/.*" desc="no license header"/>
+                <filteritem type="filepath" name="src/include/.*" desc="no license header"/>
+                <filteritem type="filepath" name="src/third_party/googletest/configure.ac" desc="no license header"/>
+                <filteritem type="filepath" name="src/ssl/d1_lib.cc" desc="no license header"/>
+                <filteritem type="filepath" name="src/ssl/dtls_method.cc" desc="no license header"/>
                 <filteritem type="filepath" name="ios-arm/crypto/fipsmodule/bsaes-armv7.S" desc="since the file contains Permission to use under GPL terms is granted"/>
                 <filteritem type="filepath" name="ios-arm/crypto/fipsmodule/sha256-armv4.S" desc="since the file contains Permission to use under GPL terms is granted"/>
                 <filteritem type="filepath" name="ios-arm/crypto/fipsmodule/sha512-armv4.S" desc="since the file contains Permission to use under GPL terms is granted"/>
