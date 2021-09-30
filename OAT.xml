@@ -68,6 +68,7 @@ Note:If the text contains special characters, please escape them according to th
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
                 <filteritem type="filepath" name="src/fuzz/.*" desc="the binary file in third party"/>
                 <filteritem type="filepath" name="src/util/bot/nasm-win32.exe.sha1" desc="the binary file in third party"/>
+                <filteritem type="filepath" name="src/util/bot/yasm-win32.exe.sha1" desc="the binary file in third party"/>
                 <filteritem type="filepath" name="src/crypto/.*" desc="the binary file in third party"/>
                 <filteritem type="filepath" name="src/util/ar/.*" desc="the binary file in third party"/>
             </filefilter>
