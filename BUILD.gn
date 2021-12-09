@@ -122,6 +122,7 @@ ohos_shared_library("crypto") {
   }
   install_enable = true
   subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+  part_name = "${OHOS_PROFILER_PART_NAME}"
 }
 
 ohos_shared_library("ssl") {
@@ -133,6 +134,7 @@ ohos_shared_library("ssl") {
   deps = [ ":crypto" ]
   install_enable = true
   subsystem_name = "${OHOS_PROFILER_SUBSYS_NAME}"
+  part_name = "${OHOS_PROFILER_PART_NAME}"
 }
 
 #ohos_executable("bssl") {
