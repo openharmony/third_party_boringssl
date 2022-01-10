@@ -1,0 +1,39 @@
+{
+    "name": "@ohos/boringssl",
+    "version": "",
+    "description": "Third-party open-source software boringssl | 三方开源软件boringssl",
+    "homePage": "https://gitee.com/openharmony",
+    "license": "OpenSSL License,MIT License,ISC License",
+    "repository": "https://gitee.com/openharmony/third_party_boringssl",
+    "domain": "os",
+    "language": "",
+    "publishAs": "code-segment",
+    "private": false,
+    "scripts": {},
+    "tags": [
+        "third_party"
+    ],
+    "keywords": [
+        "third-party",
+        "boringssl"
+    ],
+    "envs": [],
+    "dirs": [],
+    "segment": {
+        "destPath": "third_party/boringssl"
+    },
+    "component": {
+        "name": "thirdparty_boringssl",
+        "subsystem": "",
+        "syscap": [],
+        "features": [],
+        "adapted_system_type": [],
+        "rom": "",
+        "ram": "",
+        "build": {
+            "sub_component": [],
+            "inner_kits": [],
+            "test": []
+        }
+    }
+}
